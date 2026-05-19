@@ -1,0 +1,210 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "DM Mono", monospace;
+  user-select: none;
+}
+
+body {
+  overflow: hidden;
+}
+
+html {
+  font-size: calc(0.4em + 0.5vw);
+}
+
+.text-12 {
+  font-size: 0.7rem;
+}
+
+.text-14 {
+  font-size: 0.8rem;
+}
+
+.text-16 {
+  font-size: 1rem;
+}
+
+.text-18 {
+  font-size: 1.2rem;
+}
+
+.text-30 {
+  font-size: 1.8rem;
+}
+
+.text-trans {
+  opacity: 0.4;
+}
+
+.text-red {
+  color: #FF5B5B;
+}
+
+.gray-box {
+  background: rgba(217, 217, 217, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  width: fit-content;
+  height: fit-content;
+}
+
+.flex {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+}
+
+.icon {
+  display: flex;
+}
+
+main {
+  width: 100vw;
+  height: 100vh;
+  color: #fff;
+  display: none;
+}
+main .bg-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -2;
+  object-fit: cover;
+}
+main .bg-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+main .center-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+main .top-left {
+  position: absolute;
+  left: 2rem;
+  top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+main .bottom-left {
+  position: absolute;
+  left: 2rem;
+  bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+main .bottom-right {
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: right;
+}
+main .bottom-center {
+  position: absolute;
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+main .top-center {
+  position: absolute;
+  left: 50%;
+  top: 2rem;
+  transform: translateX(-50%);
+  width: 50vw;
+  overflow: hidden;
+  padding-top: 1rem;
+}
+main .top-center .scroll {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s linear;
+  transform: translateX(-21%);
+}
+main .top-center .scroll div {
+  position: relative;
+}
+main .top-center .scroll div::before {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 10px;
+  background: #fff;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+main .camera-type-buttons {
+  position: absolute;
+  left: 50%;
+  top: 6rem;
+  transform: translateX(-50%);
+  display: flex;
+  cursor: pointer;
+}
+main .camera-type-buttons .btn {
+  padding: 1rem 2rem;
+}
+main .camera-type-buttons .btn.active {
+  opacity: 1 !important;
+  background: rgba(217, 217, 217, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+main .camera-type-buttons .btn:not(.active) {
+  opacity: 0.5;
+}
+main .camera-type-buttons .btn:not(.active):hover {
+  opacity: 0.8;
+}
+main .player-data {
+  position: absolute;
+  left: 80%;
+  top: 23%;
+  transform: translateY(-77%);
+  display: none;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  background: rgba(217, 217, 217, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 1rem;
+}
+main .player-data .arrow {
+  position: absolute;
+  right: 100%;
+  top: 100%;
+}
+main .player-data .player-image {
+  min-width: 3rem;
+  height: 3rem;
+}
+main .player-data .player-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+/*# sourceMappingURL=style.css.map */
