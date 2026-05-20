@@ -157,6 +157,8 @@ function openCameras()
                                             name = cb?.name or "Unknown",
                                             image = mug or "assets/default.png",
                                             birthDate = cb?.birthDate or "Unknown",
+                                            role = (cb?.job == "police") and "Police" or "Citizen",
+                                            armed = IsPedArmed(entityHit, 6) and "ARMED" or "UNARMED",
                                         }
                                     end, NetworkGetNetworkIdFromEntity(entityHit))
                                 else
@@ -166,6 +168,8 @@ function openCameras()
                                         name = "Citizen",
                                         image = mug or "assets/default.png",
                                         birthDate = "Unknown",
+                                        role = "Citizen",
+                                        armed = IsPedArmed(entityHit, 6) and "ARMED" or "UNARMED",
                                     }
                                 end
                             elseif IsEntityAVehicle(entityHit) then

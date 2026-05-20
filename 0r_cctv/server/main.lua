@@ -25,12 +25,14 @@ RegisterServerCallback("0r_cctv:server:scanPlayer", function(source, cb, netId)
         cb(Player and {
             name = Player.PlayerData.charinfo.firstname .. " " .. Player.PlayerData.charinfo.lastname,
             birthDate = Player.PlayerData.charinfo.birthdate,
+            job = Player.PlayerData.job.name,
         } or nil)
     else
         local xPlayer = Framework.GetPlayerFromId(targetSrc)
         cb(xPlayer and {
             name = xPlayer.getName(),
             birthDate = xPlayer.get('dateofbirth'),
+            job = xPlayer.job.name,
         } or nil)
     end
 end)
