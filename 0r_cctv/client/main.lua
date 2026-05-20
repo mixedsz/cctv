@@ -152,7 +152,15 @@ function openCameras()
 
                                 local isArmed = IsPedArmed(entityHit, 7) and "ARMED" or "UNARMED"
 
-                                if IsPedAPlayer(entityHit) then
+                                local targetServerId = nil
+                                for _, pid in ipairs(GetActivePlayers()) do
+                                    if GetPlayerPed(pid) == entityHit then
+                                        targetServerId = GetPlayerServerId(pid)
+                                        break
+                                    end
+                                end
+
+                                if targetServerId then
                                     triggerServerCallback("0r_cctv:server:scanPlayer", function(cb)
                                         local job = cb and cb.job or ""
                                         ScannedPlayers[entityHit] = {
@@ -163,7 +171,7 @@ function openCameras()
                                             role = (job:lower() == "police") and "Police" or "Citizen",
                                             armed = isArmed,
                                         }
-                                    end, NetworkGetNetworkIdFromEntity(entityHit))
+                                    end, targetServerId)
                                 else
                                     ScannedPlayers[entityHit] = {
                                         ped = entityHit,

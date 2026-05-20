@@ -4,29 +4,16 @@ RegisterServerCallback("0r_cctv:server:isCamerasActive", function(source, cb)
     cb(CamerasActive)
 end)
 
-RegisterServerCallback("0r_cctv:server:scanPlayer", function(source, cb, netId)
-    local entity = NetworkGetEntityFromNetworkId(netId)
-    local targetSrc = nil
-
-    for _, playerId in ipairs(GetPlayers()) do
-        if GetPlayerPed(tonumber(playerId)) == entity then
-            targetSrc = tonumber(playerId)
-            break
-        end
-    end
-
-    if not targetSrc then
-        cb(nil)
-        return
-    end
+RegisterServerCallback("0r_cctv:server:scanPlayer", function(source, cb, targetSrc)
+    if not targetSrc then cb(nil) return end
 
     if Config.Framework == "qb" then
         local Player = Framework.Functions.GetPlayer(targetSrc)
-        cb(Player and {
+        if not Player then cb(nil) return end
+        cb({
             name = Player.PlayerData.charinfo.firstname .. " " .. Player.PlayerData.charinfo.lastname,
-            birthDate = Player.PlayerData.charinfo.birthdate,
-            job = Player.PlayerData.job.name,
-        } or nil)
+            job  = Player.PlayerData.job.name,
+        })
     else
         local xPlayer = Framework.GetPlayerFromId(targetSrc)
         if not xPlayer then cb(nil) return end
