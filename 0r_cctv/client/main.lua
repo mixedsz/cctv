@@ -142,30 +142,44 @@ function openCameras()
                     if hit ~= 0 and entityHit ~= 0 then
                         if not doesPlayerExist(entityHit) then
                             if IsEntityAPed(entityHit) then
-                                local result = exports["loaf_headshot_base64"]:getBase64(PlayerPedId())
                                 local mug = nil
-
-                                if result.success then
+                                local ok, result = pcall(function()
+                                    return exports["loaf_headshot_base64"]:getBase64(PlayerPedId())
+                                end)
+                                if ok and result and result.success then
                                     mug = result.base64
                                 end
 
-                                if IsPedAPlayer(entityHit) then
+                                local isArmed = IsPedArmed(entityHit, 7) and "ARMED" or "UNARMED"
+
+                                local targetServerId = nil
+                                for _, pid in ipairs(GetActivePlayers()) do
+                                    if GetPlayerPed(pid) == entityHit then
+                                        targetServerId = GetPlayerServerId(pid)
+                                        break
+                                    end
+                                end
+
+                                if targetServerId then
                                     triggerServerCallback("0r_cctv:server:scanPlayer", function(cb)
+                                        local job = cb and cb.job or ""
                                         ScannedPlayers[entityHit] = {
                                             ped = entityHit,
                                             type = "player",
-                                            name = cb?.name or "Unknown",
+                                            name = cb and cb.name or "Unknown",
                                             image = mug or "assets/default.png",
-                                            birthDate = cb?.birthDate or "Unknown",
+                                            role = (job:lower() == "police") and "Police" or "Citizen",
+                                            armed = isArmed,
                                         }
-                                    end, NetworkGetNetworkIdFromEntity(entityHit))
+                                    end, targetServerId)
                                 else
                                     ScannedPlayers[entityHit] = {
                                         ped = entityHit,
                                         type = "ped",
                                         name = "Citizen",
                                         image = mug or "assets/default.png",
-                                        birthDate = "Unknown",
+                                        role = "Citizen",
+                                        armed = isArmed,
                                     }
                                 end
                             elseif IsEntityAVehicle(entityHit) then

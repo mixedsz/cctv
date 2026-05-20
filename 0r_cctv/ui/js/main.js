@@ -59,8 +59,9 @@ $(function(){
         if (data.action === "showPlayerData"){
             let playerName = data.playerData.name
             let playerImage = data.playerData.image
-            let playerBirthDate = data.playerData.birthDate
             let type = data.playerData.type
+            let playerRole = data.playerData.role || "Citizen"
+            let playerArmed = data.playerData.armed || "UNARMED"
 
             $(".player-name").text(playerName)
             if (type == "vehicle"){
@@ -68,7 +69,8 @@ $(function(){
             }else{
                 $(".player-image img").attr("src", playerImage)
             }
-            $(".player-birthDate").text(playerBirthDate)
+            $(".player-role").text(playerRole)
+            $(".player-armed").text(playerArmed)
 
             $(".player-data").show()
             $(".player-data").css("display", "flex")
