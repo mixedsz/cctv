@@ -29,11 +29,17 @@ RegisterServerCallback("0r_cctv:server:scanPlayer", function(source, cb, netId)
         } or nil)
     else
         local xPlayer = Framework.GetPlayerFromId(targetSrc)
-        cb(xPlayer and {
-            name = xPlayer.getName(),
-            birthDate = xPlayer.get('dateofbirth'),
-            job = xPlayer.job.name,
-        } or nil)
+        if not xPlayer then cb(nil) return end
+        local firstName = xPlayer.get('firstName') or ""
+        local lastName  = xPlayer.get('lastName')  or ""
+        local name = (firstName ~= "" and lastName ~= "") and (firstName .. " " .. lastName)
+                  or (firstName ~= "" and firstName)
+                  or xPlayer.getName()
+                  or "Unknown"
+        cb({
+            name = name,
+            job  = xPlayer.job and xPlayer.job.name or "",
+        })
     end
 end)
 
